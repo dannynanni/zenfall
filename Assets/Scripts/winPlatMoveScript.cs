@@ -12,7 +12,7 @@ public class winPlatMoveScript : MonoBehaviour {
 	void Start () {
 
 
-		startPos = new Vector3 (0f, -510f, 250f);
+		startPos = new Vector3 (0f, -510f, 0f);
 		platform.transform.position = startPos;
 		endPos = new Vector3 (0f, -510, 510f);
 	}
@@ -26,7 +26,7 @@ public class winPlatMoveScript : MonoBehaviour {
 
 	IEnumerator ForwardLerp(){
 
-		if (platform.transform.position.z == 250f){
+		if (platform.transform.position.z == 0f){
 			Debug.Log ("lerp1");
 			float percentage = 0.0f;
 				while (percentage < 1.0f) {

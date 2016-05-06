@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMoveJitterSmooth : MonoBehaviour {
 
@@ -8,8 +10,11 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 	public float airThrust;
 	public float tiltAmount;
 	public float maxVelocity;
+	public AudioSource chime;
+	public AudioSource winChime;
 	//public float speed;
 	//public float force = 11.0f;
+	bool win = false;
 
 	// Use this for initialization
 	void Start () {
@@ -78,7 +83,7 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 		//		dir *= Time.deltaTime;
 		//		transform.Translate(dir * speed);
 
-
+		ResetTimer ();
 	}
 
 
@@ -96,4 +101,33 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 //
 //
 //	}
+
+	void OnCollisionEnter (Collision collision){
+
+		if (collision.gameObject.tag == "cube") {
+		
+			chime.Play ();
+		}
+
+		if (collision.gameObject.tag == "wincube") {
+
+			winChime.Play ();
+			win = true;
+		}
+
+
+	}
+
+	void ResetTimer(){
+		Debug.Log ("ResetTimer");
+		Invoke ("WinReset", 9);
+	}
+
+	void WinReset (){
+	
+		if (win) {
+			Debug.Log ("win");
+			SceneManager.LoadScene (0);
+		}
+	}
 }
