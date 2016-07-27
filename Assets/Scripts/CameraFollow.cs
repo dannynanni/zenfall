@@ -4,6 +4,8 @@ using System.Collections;
 public class CameraFollow : MonoBehaviour {
 
 	public GameObject player;
+	public float plusY;
+	public float plusZ;
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +17,8 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
 	
 		Camera.main.transform.position = new Vector3 (player.transform.position.x,
-			player.transform.position.y + 15,
-			player.transform.position.z - 5);
+			player.transform.position.y + plusY,
+			player.transform.position.z + plusZ);
 	}
 }
 
