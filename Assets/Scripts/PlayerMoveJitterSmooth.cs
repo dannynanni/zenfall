@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMoveJitterSmooth : MonoBehaviour {
 
 	public float thrust;
-	public Rigidbody rb;
+	public Rigidbody2D rb;
 	public float airThrust;
 	public float tiltAmount;
 	public float maxVelocity;
@@ -19,7 +19,7 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		rb = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody2D>();
 		//rb.AddForce(0,-10, thrust, ForceMode.Impulse);
 	}
 
@@ -47,6 +47,18 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 //			Debug.Log ("forceY");
 //			forceZ = 1f;
 //		}
+
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+		
+			rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
+
+		}
+
+		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+
+			rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
+
+		}
 
 		rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
 
