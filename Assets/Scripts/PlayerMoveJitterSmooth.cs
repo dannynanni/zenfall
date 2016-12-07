@@ -40,13 +40,13 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 			forceX = 1f;
 		}
 
-		if (accelZ < tiltAmount){
-			Debug.Log ("-forceY");
-			forceZ = -1f;
-		} else {
-			Debug.Log ("forceY");
-			forceZ = 1f;
-		}
+//		if (accelZ < tiltAmount){
+//			Debug.Log ("-forceY");
+//			forceZ = -1f;
+//		} else {
+//			Debug.Log ("forceY");
+//			forceZ = 1f;
+//		}
 
 		rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
 
