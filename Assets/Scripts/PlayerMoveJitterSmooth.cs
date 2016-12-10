@@ -12,6 +12,10 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 	public float maxVelocity;
 	public AudioSource chime;
 	public AudioSource winChime;
+
+	float zeroAc;
+	float sensV;
+	float sensH;
 	//public float speed;
 	//public float force = 11.0f;
 	bool win = false;
@@ -25,61 +29,33 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 
 	void FixedUpdate() 
 	{
-		float forceX = 0f;
-		float forceZ = 0f;
-		float accelX = Input.acceleration.x;
-		float accelZ = Input.acceleration.y;
-		Debug.Log ("x==" + Input.acceleration.x);
-		Debug.Log ("z==" + Input.acceleration.y);
-
-		if (accelX < tiltAmount) {
-			Debug.Log ("-forceX");
-			forceX = -1f;
-		} else {
-			Debug.Log ("forceX");
-			forceX = 1f;
+		//are we using a computer as opposed to a mobile device with an accelerometer?
+		if(SystemInfo.deviceType == DeviceType.Desktop)
+		{
+			//start of movement code from rollerball tutorial
+			//used for desktop movement
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				
+					rb.AddForce(new Vector3 (-3, 0, 0) * airThrust);
+					Debug.Log ("left key");
+			}
+				
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				
+					rb.AddForce(new Vector3 (3, 0, 0) * airThrust);
+						Debug.Log ("right arrow");
+			}
 		}
+//		or are we on mobile with an accelerometer?
+		else
+		{
+			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
+			// Adding force to rigidbody
+			rb.AddForce(movement * thrust * Time.deltaTime);
 
-//		if (accelZ < tiltAmount){
-//			Debug.Log ("-forceY");
-//			forceZ = -1f;
-//		} else {
-//			Debug.Log ("forceY");
-//			forceZ = 1f;
-//		}
-
-		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			Debug.Log ("phone");
+		}
 		
-			rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
-
-		}
-
-		if (Input.GetKeyDown (KeyCode.RightArrow)) {
-
-			rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
-
-		}
-
-		rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
-
-//		float velX = rb.velocity.x;
-//		float velY = rb.velocity.z;
-//
-//		if (velX > maxVelocity) {
-//			Debug.Log ("velX");
-//			velX = maxVelocity;
-//		} else if (velX < -maxVelocity) {
-//			velX = -maxVelocity;
-//		}
-//
-//		if (velY > maxVelocity) {
-//			Debug.Log ("velY");
-//			velY = maxVelocity;
-//		} else if (velY < -maxVelocity) {
-//			velY = -maxVelocity;
-//		}
-//
-//		rb.velocity = new Vector3 (velX, -velY, 0);
 	}
 	void Update () {
 
@@ -131,7 +107,7 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 	}
 
 	void ResetTimer(){
-		Debug.Log ("ResetTimer");
+		//Debug.Log ("ResetTimer");
 		Invoke ("WinReset", 9);
 	}
 
@@ -142,4 +118,69 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 			SceneManager.LoadScene (0);
 		}
 	}
+
+//	//OLD CODE
+//	float forceX = 0f;
+//	float forceZ = 0f;
+//	float accelX = Input.acceleration.x;
+//	float accelZ = Input.acceleration.y;
+//	//Debug.Log ("x==" + Input.acceleration.x);
+//	//Debug.Log ("z==" + Input.acceleration.y);
+//
+//	//		if (accelX < tiltAmount) {
+//	//			//Debug.Log ("-forceX");
+//	//			forceX = -1f;
+//	//		} else {
+//	//			//Debug.Log ("forceX");
+//	//			forceX = 1f;
+//	//		}
+//
+//	//		if (accelZ < tiltAmount){
+//	//			Debug.Log ("-forceY");
+//	//			forceZ = -1f;
+//	//		} else {
+//	//			Debug.Log ("forceY");
+//	//			forceZ = 1f;
+//	//		}
+//
+//	if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+//
+//		rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
+//		Debug.Log ("left key");
+//
+//
+//	}
+//
+//	if (Input.GetKeyDown (KeyCode.RightArrow)) {
+//
+//		rb.AddForce(new Vector3 (forceZ, 0, forceX) * airThrust);
+//		Debug.Log ("right arrow");
+//
+//	}
+//
+//	Vector3 dir = Vector3.zero;
+//	dir.x = Input.acceleration.x;
+//	//dir.y = Input.acceleration.y;
+//	Physics.gravity = dir * thrust;
+//
+//	//		rb.AddForce(new Vector3 (forceX, 0, forceZ) * airThrust);
+//	//
+//	////		float velX = rb.velocity.x;
+//	////		float velY = rb.velocity.z;
+//	////
+//	////		if (velX > maxVelocity) {
+//	////			Debug.Log ("velX");
+//	////			velX = maxVelocity;
+//	////		} else if (velX < -maxVelocity) {
+//	////			velX = -maxVelocity;
+//	////		}
+//	////
+//	////		if (velY > maxVelocity) {
+//	////			Debug.Log ("velY");
+//	////			velY = maxVelocity;
+//	////		} else if (velY < -maxVelocity) {
+//	////			velY = -maxVelocity;
+//	////		}
+//	////
+//	////		rb.velocity = new Vector3 (velX, -velY, 0);
 }
