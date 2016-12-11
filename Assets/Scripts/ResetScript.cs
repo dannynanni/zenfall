@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class TapToPlay : MonoBehaviour {
+public class ResetScript : MonoBehaviour {
 
 	public Collider2D collider;
 
@@ -14,7 +14,7 @@ public class TapToPlay : MonoBehaviour {
 			Vector2 touchPos = new Vector2(wp.x, wp.y);
 			if (collider == Physics2D.OverlapPoint(touchPos))
 			{
-				SceneManager.LoadScene ("balanceTut", LoadSceneMode.Single);
+				SceneManager.LoadScene ("blncStart", LoadSceneMode.Single);
 
 			}
 		}
@@ -22,7 +22,8 @@ public class TapToPlay : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-	
-		SceneManager.LoadScene ("balanceTut", LoadSceneMode.Single);
+
+		SceneManager.LoadScene ("blncStart", LoadSceneMode.Single);
 	}
+
 }

@@ -30,10 +30,10 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 	void FixedUpdate() 
 	{
 		//are we using a computer as opposed to a mobile device with an accelerometer?
-		if(SystemInfo.deviceType == DeviceType.Desktop)
-		{
-			//start of movement code from rollerball tutorial
-			//used for desktop movement
+//		if(SystemInfo.deviceType == DeviceType.Desktop)
+//		{
+//			//start of movement code from rollerball tutorial
+//			//used for desktop movement
 			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 				
 					rb.AddForce(new Vector3 (-3, 0, 0) * airThrust);
@@ -45,18 +45,18 @@ public class PlayerMoveJitterSmooth : MonoBehaviour {
 					rb.AddForce(new Vector3 (3, 0, 0) * airThrust);
 						Debug.Log ("right arrow");
 			}
-		}
-//		or are we on mobile with an accelerometer?
-		else
-		{
-			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
-			// Adding force to rigidbody
-			rb.AddForce(movement * thrust * Time.deltaTime);
-
-			Debug.Log ("phone");
-		}
+//		}
+////		or are we on mobile with an accelerometer?
+//		else
+//		//{
+//			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
+//			// Adding force to rigidbody
+//			rb.AddForce(movement * thrust * Time.deltaTime);
+//
+//			Debug.Log ("phone");
+//		//}
 		
-	}
+	}	
 	void Update () {
 
 		//Debug.Log (Input.acceleration);
